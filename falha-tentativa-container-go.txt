@@ -1,0 +1,21 @@
+osboxes@osboxes:~/GitHub/api_rest_gin_go_2-validacoes-e-testes$ docker build -t my-golang-app .
+Sending build context to Docker daemon  56.53MB
+Step 1/7 : FROM golang:1.19
+ ---> 8ee516e10ce0
+Step 2/7 : WORKDIR /usr/src/app
+ ---> Running in 41a600d4206b
+Removing intermediate container 41a600d4206b
+ ---> 897c8d25ea18
+Step 3/7 : COPY go.mod go.sum ./
+ ---> 5557735b42e0
+Step 4/7 : RUN go mod download && go mod verify
+ ---> Running in 1aaa194f6df4
+all modules verified
+Removing intermediate container 1aaa194f6df4
+ ---> 51ef8830371c
+Step 5/7 : COPY . .
+ ---> 8148ad2ad995
+Step 6/7 : RUN go build -v -o /usr/local/bin/app ./...
+ ---> Running in 93a05e00abdc
+go: cannot write multiple packages to non-directory /usr/local/bin/app
+The command '/bin/sh -c go build -v -o /usr/local/bin/app ./...' returned a non-zero code: 1
