@@ -52,6 +52,3 @@ jobs:
     
     - name: Build
       run: go build -v main.go
-ENV HOST=localhost PORT=5432
-
-ENV USER=root PASSWORD=root DBNAME=root
