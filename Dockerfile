@@ -4,7 +4,7 @@ EXPOSE 8000
 
 WORKDIR /app
 
-ENV HOST=db_container PORT=5432
+ENV HOST=localhost PORT=5432
 
 ENV USER=root PASSWORD=root DBNAME=root
 

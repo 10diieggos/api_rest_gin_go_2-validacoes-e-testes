@@ -1,46 +1,21 @@
-idev@osboxes:~/GitHub/api_rest_gin_go_2-validacoes-e-testes$ docker compose up
-[+] Running 5/5
- ⠿ Network api_rest_gin_go_2-validacoes-e-testes_net_go_app  Created                                                                                                                              0.4s
- ⠿ Network api_rest_gin_go_2-validacoes-e-testes_default     Created                                                                                                                              0.4s
- ⠿ Container db_container                                    Created                                                                                                                              0.4s
- ⠿ Container go_app                                          Created                                                                                                                              0.4s
- ⠿ Container pgadmin                                         Created                                                                                                                              0.4s
-Attaching to db_container, go_app, pgadmin
-db_container  | 
-db_container  | PostgreSQL Database directory appears to contain a database; Skipping initialization
-db_container  | 
-db_container  | 2022-11-27 08:48:00.697 UTC [1] LOG:  starting PostgreSQL 15.1 (Debian 15.1-1.pgdg110+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
-db_container  | 2022-11-27 08:48:00.698 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
-db_container  | 2022-11-27 08:48:00.698 UTC [1] LOG:  listening on IPv6 address "::", port 5432
-db_container  | 2022-11-27 08:48:00.710 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
-db_container  | 2022-11-27 08:48:00.726 UTC [27] LOG:  database system was shut down at 2022-11-27 01:45:42 UTC
-db_container  | 2022-11-27 08:48:00.778 UTC [1] LOG:  database system is ready to accept connections
-go_app        | [GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
-go_app        | 
-go_app        | [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
-go_app        |  - using env:   export GIN_MODE=release
-go_app        |  - using code:  gin.SetMode(gin.ReleaseMode)
-go_app        | 
-go_app        | panic: html/template: pattern matches no files: `templates/*`
-go_app        | 
-go_app        | goroutine 1 [running]:
-go_app        | html/template.Must(...)
-go_app        |         /usr/lib/go-1.18/src/html/template/template.go:374
-go_app        | github.com/gin-gonic/gin.(*Engine).LoadHTMLGlob(0xc0003feea0, {0xba8811, 0xb})
-go_app        |         /home/osboxes/go/pkg/mod/github.com/gin-gonic/gin@v1.7.7/gin.go:225 +0x2e6
-go_app        | github.com/guilhermeonrails/api-go-gin/routes.HandleRequest()
-go_app        |         /home/osboxes/GitHub/api_rest_gin_go_2-validacoes-e-testes/routes/route.go:10 +0x33
-go_app        | main.main()
-go_app        |         /home/osboxes/GitHub/api_rest_gin_go_2-validacoes-e-testes/main.go:10 +0x1c
-go_app exited with code 2
-pgadmin       | NOTE: Configuring authentication for SERVER mode.
-pgadmin       | 
-pgadmin       | pgAdmin 4 - Application Initialisation
-pgadmin       | ======================================
-pgadmin       | 
-pgadmin       | [2022-11-27 08:49:00 +0000] [1] [INFO] Starting gunicorn 20.1.0
-pgadmin       | [2022-11-27 08:49:00 +0000] [1] [INFO] Listening at: http://[::]:80 (1)
-pgadmin       | [2022-11-27 08:49:00 +0000] [1] [INFO] Using worker: gthread
-pgadmin       | [2022-11-27 08:49:00 +0000] [90] [INFO] Booting worker with pid: 90
-db_container  | 2022-11-27 08:53:00.796 UTC [25] LOG:  checkpoint starting: time
-db_container  | 2022-11-27 08:53:00.853 UTC [25] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.010 s, sync=0.006 s, total=0.058 s; sync files=2, longest=0.003 s, average=0.003 s; distance=0 kB, estimate=0 kB
+osboxes@osboxes:~/GitHub/api_rest_gin_go_2-validacoes-e-testes$ docker build -t my-golang-app .
+Sending build context to Docker daemon  56.53MB
+Step 1/7 : FROM golang:1.19
+ ---> 8ee516e10ce0
+Step 2/7 : WORKDIR /usr/src/app
+ ---> Running in 41a600d4206b
+Removing intermediate container 41a600d4206b
+ ---> 897c8d25ea18
+Step 3/7 : COPY go.mod go.sum ./
+ ---> 5557735b42e0
+Step 4/7 : RUN go mod download && go mod verify
+ ---> Running in 1aaa194f6df4
+all modules verified
+Removing intermediate container 1aaa194f6df4
+ ---> 51ef8830371c
+Step 5/7 : COPY . .
+ ---> 8148ad2ad995
+Step 6/7 : RUN go build -v -o /usr/local/bin/app ./...
+ ---> Running in 93a05e00abdc
+go: cannot write multiple packages to non-directory /usr/local/bin/app
+The command '/bin/sh -c go build -v -o /usr/local/bin/app ./...' returned a non-zero code: 1
